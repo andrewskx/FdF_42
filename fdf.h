@@ -18,6 +18,15 @@
 # define WIDTH 1200
 # define HEIGHT 800
 
+typedef	struct		s_image
+{
+	void	*img_ptr;
+	char	*mem;
+	int	bpp;
+	int	s_line;
+	int	endian;
+}			t_image;
+
 typedef struct		s_vector
 {
 	int x0;
@@ -26,6 +35,8 @@ typedef struct		s_vector
 	int y1;
 	int z0;
 	int z1;
+	int color0;
+	int color1;
 }					t_vector;
 
 typedef struct		s_coord
@@ -33,12 +44,14 @@ typedef struct		s_coord
 	int x;
 	int y;
 	int z;
+	int color;
 }					t_coord;
 
 typedef	struct		s_map
 {
 	t_coord		**map;
 	t_vector	**vec_map;
+	t_image		image;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			axe_key;
@@ -83,4 +96,9 @@ void				fdf_fill_map(t_list *start, t_map *map,
 t_list				*fdf_validation_first_step(char *file, t_map *map);
 void				fdf_put_line(t_vector *vector, t_map *map);
 void				fdf_draw(t_map *map);
+void				fdf_set_pixel(int *aux, t_vector *curr, t_map *map);
+int				fdf_get_color(int c1, int c2, double p);
+double				fdf_get_percent(double val, double first, double second);
+int				fdf_get_gradient(int first, int second, double p);
+void				fdf_image_create(t_map *map);
 #endif

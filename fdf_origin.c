@@ -24,10 +24,11 @@ void	fdf_init(t_map *map)
 	map->angle_z = 0;
 }
 
-void	fdf_move_z_to_origin(t_map *map, int offset)
+void	fdf_move_z_to_origin(t_map *map, int offset, int max, int min)
 {
 	int i;
 	int j;
+	int cur;
 
 	i = 0;
 	while (i < map->rows)
@@ -35,7 +36,15 @@ void	fdf_move_z_to_origin(t_map *map, int offset)
 		j = 0;
 		while (j < map->columns)
 		{
-			map->map[i][j].z -= offset;
+			if (map->map[i][j].z == max)
+ 				map->map[i][j].color = 0xFFFFFF;
+ 			else if (map->map[i][j].z == min)
+ 				map->map[i][j].color = 0xFF0000;
+ 			else 
+ 			{
+ 				cur = 255 * map->map[i][j].z / max;
+ 				map->map[i][j].color = (((((255 << 8) | cur) << 8) | cur) << 4);
+ 			}
 			j++;
 		}
 		i++;
@@ -66,5 +75,5 @@ void	fdf_move_to_origin(t_map *map)
 		i++;
 	}
 	fdf_init(map);
-	fdf_move_z_to_origin(map, (z_max + z_min) / 2);
+	fdf_move_z_to_origin(map, (z_max + z_min) / 2, z_max, z_min);
 }

@@ -27,7 +27,6 @@ int	fdf_key(int key, t_map *map)
 			map->angle_y += map->reverse ? -5 * 0.0174 : 5 * 0.0174;
 		else if (key == 6)
 			map->angle_z += map->reverse ? -5 * 0.0174 : 5 * 0.0174;
-		mlx_clear_window(map->mlx_ptr, map->win_ptr);
 		fdf_draw(map);
 	}
 	else
@@ -53,7 +52,6 @@ int	fdf_motion_hook(int x, int y, t_map *map)
 	if (map->button == 2)
 	{
 		map->step = map->last_y < y ? (map->step * 1.05) : (map->step / 1.05);
-		mlx_clear_window(map->mlx_ptr, map->win_ptr);
 		fdf_draw(map);
 	}
 	return (0);

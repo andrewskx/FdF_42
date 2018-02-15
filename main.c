@@ -34,6 +34,7 @@ int		main(int arg, char **argv)
 	fdf_instruction();
 	map.mlx_ptr = mlx_init();
 	map.win_ptr = mlx_new_window(map.mlx_ptr, WIDTH, HEIGHT, argv[1]);
+	fdf_image_create(&map);
 	fdf_draw(&map);
 	mlx_hook(map.win_ptr, 2, 0, fdf_key, &map);
 	mlx_hook(map.win_ptr, 4, 0, fdf_mouse_hook, &map);

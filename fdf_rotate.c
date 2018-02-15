@@ -62,6 +62,8 @@ void		fdf_rotate(t_vector *curr, t_coord *p1, t_coord *p2, t_map *map)
 	fdf_rotate_x(curr, p1, p2, map);
 	fdf_rotate_y(curr, p1, p2, map);
 	fdf_rotate_z(curr, map);
+	curr->color0 = p1->color;
+	curr->color1 = p2->color;
 	curr->x0 += map->offset_x;
 	curr->x1 += map->offset_x;
 	curr->y0 += map->offset_y;
