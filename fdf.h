@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:41:43 by anboscan          #+#    #+#             */
-/*   Updated: 2018/02/12 16:49:25 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/02/16 15:39:57 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ typedef	struct		s_image
 {
 	void	*img_ptr;
 	char	*mem;
-	int	bpp;
-	int	s_line;
-	int	endian;
-}			t_image;
+	int		bpp;
+	int		s_line;
+	int		endian;
+}					t_image;
 
 typedef struct		s_vector
 {
@@ -68,6 +68,7 @@ typedef	struct		s_map
 	float		angle_y;
 	float		angle_z;
 }					t_map;
+
 extern inline void	fdf_rotate_x(t_vector *vector, t_coord *p1,
 					t_coord *p2, t_map *map);
 extern inline void	fdf_rotate_y(t_vector *vector, t_coord *p1,
@@ -95,10 +96,10 @@ void				fdf_fill_map(t_list *start, t_map *map,
 					int rows, int columns);
 t_list				*fdf_validation_first_step(char *file, t_map *map);
 void				fdf_put_line(t_vector *vector, t_map *map);
-void				fdf_draw(t_map *map);
+void				fdf_draw(t_map *map, int i, int j);
 void				fdf_set_pixel(int *aux, t_vector *curr, t_map *map);
-int				fdf_get_color(int c1, int c2, double p);
+int					fdf_get_color(int c1, int c2, double p);
 double				fdf_get_percent(double val, double first, double second);
-int				fdf_get_gradient(int first, int second, double p);
+int					fdf_get_gradient(int first, int second, double p);
 void				fdf_image_create(t_map *map);
 #endif

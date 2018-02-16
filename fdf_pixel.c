@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_pixel.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/16 15:17:19 by anboscan          #+#    #+#             */
+/*   Updated: 2018/02/16 15:19:54 by anboscan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 #define DX 0
 #define DY 1
@@ -7,7 +19,7 @@
 #define X 5
 #define XI 2
 
-int		fdf_get_gradient(int first, int second, double p)
+int			fdf_get_gradient(int first, int second, double p)
 {
 	if (first == second)
 		return (first);
@@ -23,7 +35,7 @@ double		fdf_get_percent(double val, double first, double second)
 	return ((val - first) / (second - first));
 }
 
-int		fdf_get_color(int c1, int c2, double p)
+int			fdf_get_color(int c1, int c2, double p)
 {
 	int r;
 	int g;
@@ -37,14 +49,12 @@ int		fdf_get_color(int c1, int c2, double p)
 	return (r << 16 | g << 8 | b);
 }
 
-
 void		fdf_set_pixel(int *aux, t_vector *curr, t_map *map)
 {
 	double	p;
-	int	color;
+	int		color;
 
-
-	if (aux[X] >= 0 && aux[X] < WIDTH &&  aux[Y] < HEIGHT && aux[Y] >= 0)
+	if (aux[X] >= 0 && aux[X] < WIDTH && aux[Y] < HEIGHT && aux[Y] >= 0)
 	{
 		p = (aux[DX] > aux[DY] ?
 			fdf_get_percent(aux[X], curr->x0, curr->x1)

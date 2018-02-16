@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:52:17 by anboscan          #+#    #+#             */
-/*   Updated: 2018/02/12 17:38:23 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/02/16 15:33:13 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,60 +19,10 @@
 #define X 5
 #define XI 2
 
-int		ft_lerpi(int first, int second, double p)
+void		fdf_draw(t_map *map, int i, int j)
 {
-	if (first == second)
-		return (first);
-	return ((int)((double)first + (second - first) * p));
-}
-
-double	ft_ilerp(double val, double first, double second)
-{
-	if (val == first)
-		return (0.0);
-	if (val == second)
-		return (1.0);
-	return ((val - first) / (second - first));
-}
-
-int			clerp(int c1, int c2, double p)
-{
-	int r;
-	int g;
-	int b;
-
-	if (c1 == c2)
-		return (c1);
-	r = ft_lerpi((c1 >> 16) & 0xFF, (c2 >> 16) & 0xFF, p);
-	g = ft_lerpi((c1 >> 8) & 0xFF, (c2 >> 8) & 0xFF, p);
-	b = ft_lerpi(c1 & 0xFF, c2 & 0xFF, p);
-	return (r << 16 | g << 8 | b);
-}
-
-
-void		mlx_set_pixel(int *aux, t_vector *curr, t_map *map)
-{
-	double p;
-	int color;
-
-
-	if (aux[X] >= 0 && aux[X] < WIDTH &&  aux[Y] < HEIGHT && aux[Y] >= 0)
-	{
-		p = (aux[DX] > aux[DY] ?
-			ft_ilerp(aux[X], curr->x0, curr->x1)
-			: ft_ilerp(aux[Y], curr->y0, curr->y1));
-		color = clerp(curr->color0, curr->color1, p);
-		*(int *)((map->image.mem + ((aux[X] + aux[Y] * WIDTH) * 4))) = color;
-	}
-}
-
-void		fdf_draw(t_map *map)
-{
-	int			i;
-	int			j;
 	t_vector	vector;
 
-	i = 0;
 	while (i < map->rows)
 	{
 		j = 0;
@@ -92,9 +42,9 @@ void		fdf_draw(t_map *map)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->image.img_ptr, 0, 0);
-	ft_bzero(map->image.mem, WIDTH * HEIGHT * 4);
-}	
+	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
+			map->image.img_ptr, 0, 0);
+}
 
 static void	fdf_put_line_low(t_vector *vector, t_map *map)
 {
@@ -113,8 +63,7 @@ static void	fdf_put_line_low(t_vector *vector, t_map *map)
 	aux[X] = vector->x0;
 	while (aux[X] < vector->x1)
 	{
-	//	mlx_pixel_put(map->mlx_ptr, map->win_ptr, aux[X], aux[Y], 0xFF0000);
-		mlx_set_pixel(aux, vector, map);
+		fdf_set_pixel(aux, vector, map);
 		if (aux[D] > 0)
 		{
 			aux[Y] = aux[Y] + aux[YI];
@@ -142,8 +91,7 @@ static void	fdf_put_line_high(t_vector *vector, t_map *map)
 	aux[X] = vector->x0;
 	while (aux[Y] < vector->y1)
 	{
-	//	mlx_pixel_put(map->mlx_ptr, map->win_ptr, aux[X], aux[Y], 0xFF0000);
-		mlx_set_pixel(aux, vector, map);
+		fdf_set_pixel(aux, vector, map);
 		if (aux[D] > 0)
 		{
 			aux[X] = aux[X] + aux[XI];

@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:30:30 by anboscan          #+#    #+#             */
-/*   Updated: 2018/02/12 17:34:58 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/02/16 15:33:25 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		main(int arg, char **argv)
 	map.mlx_ptr = mlx_init();
 	map.win_ptr = mlx_new_window(map.mlx_ptr, WIDTH, HEIGHT, argv[1]);
 	fdf_image_create(&map);
-	fdf_draw(&map);
+	fdf_draw(&map, 0, 0);
 	mlx_hook(map.win_ptr, 2, 0, fdf_key, &map);
 	mlx_hook(map.win_ptr, 4, 0, fdf_mouse_hook, &map);
 	mlx_hook(map.win_ptr, 5, 0, fdf_button_release_hook, &map);

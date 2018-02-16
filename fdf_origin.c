@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:48:31 by anboscan          #+#    #+#             */
-/*   Updated: 2018/02/12 16:39:08 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/02/16 15:20:17 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ void	fdf_move_z_to_origin(t_map *map, int offset, int max, int min)
 		while (j < map->columns)
 		{
 			if (map->map[i][j].z == max)
- 				map->map[i][j].color = 0xFFFFFF;
- 			else if (map->map[i][j].z == min)
- 				map->map[i][j].color = 0xFF0000;
- 			else 
- 			{
- 				cur = 255 * map->map[i][j].z / max;
- 				map->map[i][j].color = (((((255 << 8) | cur) << 8) | cur) << 4);
- 			}
+				map->map[i][j].color = 0xFFFFFF;
+			else if (map->map[i][j].z == min)
+				map->map[i][j].color = 0xFF0000;
+			else
+			{
+				cur = 255 * map->map[i][j].z / max;
+				map->map[i][j].color = (((((255 << 8) | cur) << 8) | cur) << 4);
+			}
+			map->map[i][j].z -= offset;
 			j++;
 		}
 		i++;
